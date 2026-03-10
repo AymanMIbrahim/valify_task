@@ -216,6 +216,101 @@ Confusion matrix is also printed:
 ```
 TP TN FP FN
 ```
+---
+
+# Model Evaluation Results
+
+After training the **SpoofFormer Vision Transformer**, the model was evaluated on the **held-out test dataset** using the evaluation pipeline located in:
+
+```text
+train/helpers/evaluate.py
+```
+
+The evaluation computes both **standard classification metrics** and **face anti-spoofing specific metrics** commonly used in biometric security systems.
+
+---
+
+## Test Set Performance
+
+| Metric    | Value      |
+| --------- | ---------- |
+| Accuracy  | **94.88%** |
+| Precision | **78.82%** |
+| Recall    | **68.89%** |
+| F1 Score  | **73.53%** |
+
+These results indicate that the model performs strongly in overall classification accuracy while maintaining reasonable precision and recall for detecting spoof attacks.
+
+---
+
+## Confusion Matrix
+
+|                  | Predicted Spoof | Predicted Live |
+| ---------------- | --------------- | -------------- |
+| **Actual Spoof** | TN = **3305**   | FP = **72**    |
+| **Actual Live**  | FN = **121**    | TP = **268**   |
+
+Interpretation:
+
+* **True Positives (TP)** → correctly detected real faces
+* **True Negatives (TN)** → correctly detected spoof attacks
+* **False Positives (FP)** → spoof attacks incorrectly classified as real (security risk)
+* **False Negatives (FN)** → real users incorrectly classified as spoof (usability issue)
+
+---
+
+## Anti-Spoofing Metrics
+
+Face anti-spoofing systems are typically evaluated using **ISO/IEC biometric presentation attack detection metrics**.
+
+| Metric | Value      |
+| ------ | ---------- |
+| APCER  | **2.13%**  |
+| BPCER  | **31.11%** |
+| ACER   | **16.62%** |
+
+### Metric Definitions
+
+**APCER — Attack Presentation Classification Error Rate**
+
+```text
+Spoof images classified as Live
+```
+
+Measures the **security risk** of spoof attacks bypassing the system.
+
+Lower APCER means better protection against attacks.
+
+---
+
+**BPCER — Bona Fide Presentation Classification Error Rate**
+
+```text
+Real users classified as Spoof
+```
+
+Measures **usability impact** (false rejection of legitimate users).
+
+---
+
+**ACER — Average Classification Error Rate**
+
+```text
+ACER = (APCER + BPCER) / 2
+```
+
+This is the **primary metric used in many anti-spoofing benchmarks**.
+
+---
+
+## Interpretation
+
+Key observations from the evaluation:
+
+* The model achieves **high overall accuracy (94.88%)**.
+* **APCER is very low (2.13%)**, meaning the system rarely allows spoof attacks to pass.
+* **BPCER is higher (31.11%)**, indicating the model occasionally rejects legitimate users.
+* The resulting **ACER of 16.62%** shows balanced performance but suggests that further improvements could reduce false rejections.
 
 ---
 
@@ -381,7 +476,7 @@ Errors are logged automatically.
 
 ---
 
-# Docker Deployment
+# Docker Deployment and Run
 
 Build the Docker image:
 
@@ -395,7 +490,7 @@ Run the container:
 docker run --rm -p 8000:8000 spoofformer-api
 ```
 
-Open the API:
+Open the API and Test it:
 
 ```
 http://localhost:8000/docs
@@ -410,16 +505,17 @@ Main dependencies:
 ```
 torch
 torchvision
-onnx
-onnxruntime
-onnxscript
 fastapi
 uvicorn
 python-multipart
-numpy
 pillow
-opencv-python-headless
+numpy
 scikit-learn
+opencv-python-headless
+onnx
+onnxruntime
+onnxscript
+email-validator
 ```
 
 Install locally:
