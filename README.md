@@ -99,14 +99,14 @@ REST API /predict
 
 # Dataset Format
 
-The training dataset must follow this format:
 
-```
+
+
 First Create a folder called data inside train folder (eg. train/data)
-download the dataset using this link:
+download the dataset using this link: https://drive.google.com/file/d/1CMFidVy1u0FuOJ9RdmbDgY5SLBvdgCV1/view?usp=sharing
 
-Formate the data like this:
-
+The training dataset must follow this format:
+```
 data/
 │
 ├── image1.png
