@@ -353,10 +353,10 @@ This is the **primary metric used in many anti-spoofing benchmarks**.
 
 Key observations from the evaluation:
 
-* The model achieves **high overall accuracy (94.88%)**.
-* **APCER is very low (2.13%)**, meaning the system rarely allows spoof attacks to pass.
-* **BPCER is higher (31.11%)**, indicating the model occasionally rejects legitimate users.
-* The resulting **ACER of 16.62%** shows balanced performance but suggests that further improvements could reduce false rejections.
+* The model achieves **high overall accuracy (94.72%)**.
+* **APCER is very low (3.26%)**, meaning the system rarely allows spoof attacks to pass.
+* **BPCER is higher (22.88%)**, indicating the model occasionally rejects legitimate users.
+* The resulting **ACER of 13.07%** shows balanced performance but suggests that further improvements could reduce false rejections.
 
 ---
 
@@ -626,7 +626,7 @@ Possible enhancements:
 
 ```
 Domain generalization training
-Multi-scale SpoofFormer architecture
+apply on a dataset with depth images
 IR / Depth modality support
 Model quantization (INT8 ONNX)
 TensorRT inference
