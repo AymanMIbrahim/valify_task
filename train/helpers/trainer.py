@@ -79,7 +79,7 @@ def compute_classification_metrics(all_labels: List[int], all_preds: List[int]) 
     }
 
 
-def train_one_epoch(model, loader, criterion, optimizer, device) -> Dict[str, float]:
+def train_one_epoch(model, loader, criterion, optimizer, device, scaler):
     model.train()
 
     running_loss = 0.0
@@ -90,11 +90,15 @@ def train_one_epoch(model, loader, criterion, optimizer, device) -> Dict[str, fl
         images = images.to(device, non_blocking=True)
         labels = labels.to(device, non_blocking=True)
 
-        optimizer.zero_grad()
-        logits = model(images)
-        loss = criterion(logits, labels)
-        loss.backward()
-        optimizer.step()
+        optimizer.zero_grad(set_to_none=True)
+
+        with torch.cuda.amp.autocast(enabled=torch.cuda.is_available()):
+            logits = model(images)
+            loss = criterion(logits, labels)
+
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
 
         batch_size = images.size(0)
         running_loss += loss.item() * batch_size
@@ -173,6 +177,8 @@ def fit(model, train_loader, test_loader, num_epochs=NUM_EPOCHS):
 
     criterion, optimizer, scheduler = build_training_components(model)
 
+    scaler = torch.cuda.amp.GradScaler(enabled=torch.cuda.is_available())
+
     best_test_acc = 0.0
 
     print(f"Using device: {device}")
@@ -185,6 +191,7 @@ def fit(model, train_loader, test_loader, num_epochs=NUM_EPOCHS):
             criterion=criterion,
             optimizer=optimizer,
             device=device,
+            scaler=scaler,
         )
 
         test_metrics = evaluate(

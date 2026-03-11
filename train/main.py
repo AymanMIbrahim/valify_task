@@ -3,6 +3,8 @@ from train.helpers.evaluate import evaluate_model
 from train.helpers.export import export_best_model_to_onnx
 from train.helpers.trainer import fit
 from train.models import SpoofFormer
+import torch
+torch.cuda.empty_cache()
 
 
 def main():
@@ -16,6 +18,7 @@ def main():
     )
 
     evaluate_model()
+
     export_info = export_best_model_to_onnx()
     print("ONNX export completed.")
     print(export_info)

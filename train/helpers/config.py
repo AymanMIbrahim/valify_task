@@ -17,11 +17,26 @@ NUM_CLASSES = 2
 # =========================
 # Training settings
 # =========================
-BATCH_SIZE = 32
+BATCH_SIZE = 4
 NUM_EPOCHS = 20
 LEARNING_RATE = 1e-4
 WEIGHT_DECAY = 1e-4
 RANDOM_SEED = 42
+
+# =========================
+# SpoofFormerNet model settings
+# =========================
+STEM_DIM = 32
+BRANCH_DIMS = [32, 64, 128, 256]
+STAGE_DEPTHS = [1, 1, 1, 1]
+NUM_HEADS = [2, 4, 4, 8]
+WINDOW_SIZES = [7, 7, 7, 7]
+SPARSE_STRIDES = [8, 8, 4, 4]
+MLP_RATIO = 2.0
+DROPOUT = 0.1
+ATTN_DROPOUT = 0.1
+USE_DEPTH_STREAM = False
+MULTISCALE_KERNELS = [3, 5, 7, 9]
 
 # =========================
 # Paths

@@ -237,11 +237,11 @@ The evaluation computes both **standard classification metrics** and **face anti
 ## Test Set Performance
 
 | Metric    | Value      |
-| --------- | ---------- |
-| Accuracy  | **94.88%** |
-| Precision | **78.82%** |
-| Recall    | **68.89%** |
-| F1 Score  | **73.53%** |
+| --------- |------------|
+| Accuracy  | **94.72%** |
+| Precision | **73.17%** |
+| Recall    | **77.12%** |
+| F1 Score  | **75.09%** |
 
 These results indicate that the model performs strongly in overall classification accuracy while maintaining reasonable precision and recall for detecting spoof attacks.
 
@@ -250,9 +250,9 @@ These results indicate that the model performs strongly in overall classificatio
 ## Confusion Matrix
 
 |                  | Predicted Spoof | Predicted Live |
-| ---------------- | --------------- | -------------- |
-| **Actual Spoof** | TN = **3305**   | FP = **72**    |
-| **Actual Live**  | FN = **121**    | TP = **268**   |
+| ---------------- |-----------------|----------------|
+| **Actual Spoof** | TN = **3267**   | FP = **110**   |
+| **Actual Live**  | FN = **89**     | TP = **300**   |
 
 Interpretation:
 
@@ -268,10 +268,10 @@ Interpretation:
 Face anti-spoofing systems are typically evaluated using **ISO/IEC biometric presentation attack detection metrics**.
 
 | Metric | Value      |
-| ------ | ---------- |
-| APCER  | **2.13%**  |
-| BPCER  | **31.11%** |
-| ACER   | **16.62%** |
+| ------ |------------|
+| APCER  | **3.26%**  |
+| BPCER  | **22.88%** |
+| ACER   | **13.07%** |
 
 ### Metric Definitions
 
