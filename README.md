@@ -1,3 +1,5 @@
+![Alt text](./logo.png)
+
 # SpoofFormer Face Anti-Spoofing System
 
 A complete **end-to-end Face Anti-Spoofing pipeline** built with:
@@ -494,6 +496,39 @@ Open the API and Test it:
 
 ```
 http://localhost:8000/docs
+```
+
+---
+
+# Train The Model
+
+Inside ./valify_task/
+
+Create Virtual env (eg. venv):
+
+```
+conda create -p venv python==3.11
+```
+
+Activate the Virtual Env:
+
+```
+conda activate ./venv
+```
+
+Install requirments.txt:
+
+```
+pip install -r requirments.txt
+```
+
+- Create ./valify_task/train/data/
+- Extract the downloaded dataset inside this folder
+- Feel Free to play with the /valify_task/helpers/config.py it has all model hyper parameters
+- Run the main script to start train /valify_task/train/main.py
+
+```
+python main.py
 ```
 
 ---
