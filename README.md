@@ -162,13 +162,55 @@ Labels are mapped internally as:
 
 Training uses **PyTorch** with a **Vision Transformer architecture** inspired by SpoofFormer.
 
-Main components:
 
 ```
-Patch Embedding
-Transformer Blocks
-Class Token
-MLP Head
+                RGB Image
+                     │
+                     ▼
+                Conv Stem
+                     │
+                     ▼
+         Multi-Scale Token Embedding
+                     │
+                     ▼
+           HR-ViT Multi-Branch Network
+       ┌────────┬────────┬────────┬────────┐
+       │Branch1 │Branch2 │Branch3 │Branch4 │
+       │HighRes │MidRes  │LowRes  │VeryLow │
+       └────────┴────────┴────────┴────────┘
+                     │
+                     ▼
+               RGB Feature Vector
+
+
+                Depth Image
+                     │
+                     ▼
+                Conv Stem
+                     │
+                     ▼
+         Multi-Scale Token Embedding
+                     │
+                     ▼
+           HR-ViT Multi-Branch Network
+       ┌────────┬────────┬────────┬────────┐
+       │Branch1 │Branch2 │Branch3 │Branch4 │
+       │HighRes │MidRes  │LowRes  │VeryLow │
+       └────────┴────────┴────────┴────────┘
+                     │
+                     ▼
+             Depth Feature Vector
+
+
+                     │
+                     ▼
+                Feature Fusion
+                     │
+                     ▼
+              Classification Head
+                     │
+                     ▼
+                 Real / Spoof
 ```
 
 Input resolution:
